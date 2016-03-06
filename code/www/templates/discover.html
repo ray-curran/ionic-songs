@@ -1,19 +1,19 @@
 <ion-view view-title="Discover" class="discover-page">
   <ion-content scroll="false">
 
-
-    <div class="list card current-song"
-      ng-class="{skipped: currentSong.rated == false,
-                favorited: currentSong.rated == true}"
-      ng-show="currentSong && !currentSong.hide">
+  <td-cards>
+    <td-card ng-repeat="song in queue" on-swipe-left="sendFeedback(false, $index)" on-swipe-right="sendFeedback(true, $index)" class="list card current-song"
+      ng-class="{skipped: song.rated == false,
+                favorited: song.rated == true}"
+      ng-show="song && !song.hide">
 
       <div class="item item-image">
-        <img ng-src="{{ currentSong.image_large }}">
+        <img ng-src="{{ song.image_large }}">
       </div>
 
       <div class="item">
-        <h2>{{currentSong.title}}<span ng-hide="currentSong.loaded"><i class="ion-loadin-c"></i></span></h2>
-        <p>{{currentSong.artist}}</p>
+        <h2>{{song.title}}<span ng-hide="song.loaded"><i class="ion-loadin-c"></i></span></h2>
+        <p>{{song.artist}}</p>
       </div>
 
       <div class="item tabs tabs-secondary tabs-icon-left">
@@ -27,11 +27,11 @@
         </a>
       </div>
 
-    </div>
-
-    <div class="img-lookahead">
+    </td-card>
+  <td-cards>
+<!--     <div class="img-lookahead">
       <img ng-src="{{ nextAlbumImg() }}" />
-    </div>
+    </div> -->
 
 
   </ion-content>

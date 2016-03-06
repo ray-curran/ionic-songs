@@ -121,6 +121,7 @@ angular.module('songhop.services', ['ionic.utils'])
 
     if (o.queue.length <= 3) {
       o.getNextSongs();
+
     }
   };
 
@@ -143,7 +144,7 @@ angular.module('songhop.services', ['ionic.utils'])
   };
 
   o.init = function() {
-    if(o.queue.length === 0) {
+    if(o.queue.length < 2) {
       return o.getNextSongs();
     } else {
       return o.playCurrentSong();

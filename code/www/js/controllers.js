@@ -24,21 +24,22 @@ Controller for the discover page
     .then(function() {
       $scope.currentSong = Recommendations.queue[0];
       Recommendations.playCurrentSong();
-      $scope.song = $scope.currentSong;
+      $scope.queue = Recommendations.queue;
       })
     .then(function(){
       hideLoading();
       $scope.currentSong.loaded = true;
     })
 
-  $scope.sendFeedback = function(bool) {
+  $scope.sendFeedback = function(bool, index) {
+    console.log(Recommendations.queue[index])
+    if (bool) User.addSongToFavorites(Recommendations.queue[index]);
 
-    if (bool) User.addSongToFavorites($scope.currentSong);
-
-    $scope.currentSong.rated = bool;
-    $scope.currentSong.hide = true;
+    Recommendations.queue[index].rated = bool;
+    Recommendations.queue[index].hide = true;
 
     Recommendations.nextSong();
+    $scope.queue = Recommendations.queue;
 
     $timeout(function() {
 
