@@ -32,7 +32,6 @@ Controller for the discover page
     })
 
   $scope.sendFeedback = function(bool, index) {
-    console.log(Recommendations.queue[index])
     if (bool) User.addSongToFavorites(Recommendations.queue[index]);
 
     Recommendations.queue[index].rated = bool;
@@ -67,7 +66,7 @@ Controller for the discover page
 /*
 Controller for the favorites page
 */
-.controller('FavoritesCtrl', function($scope, User, $window) {
+.controller('FavoritesCtrl', function($scope, User, $window, $ionicActionSheet, $timeout) {
   $scope.favorites = User.favorites;
   $scope.username = User.username;
 
@@ -78,6 +77,31 @@ Controller for the favorites page
   $scope.openSong = function(song) {
     $window.open(song.open_url, "_system");
   }
+
+   $scope.show = function(song) {
+
+   // Show the action sheet
+   var hideSheet = $ionicActionSheet.show({
+     buttons: [
+       { text: 'Twitter' },
+       { text: 'Facebook' }
+     ],
+     titleText: 'Share "' + song.title + '"',
+     cancelText: 'Cancel',
+     cancel: function() {
+          // add cancel code..
+        },
+     buttonClicked: function(index) {
+       return true;
+     }
+   });
+
+   // For example's sake, hide the sheet after two seconds
+   $timeout(function() {
+     hideSheet();
+   }, 5000);
+
+ };
 
 })
 
